@@ -16,7 +16,7 @@ document.body.appendChild(app.canvas);
 const graphics = new PIXI.Graphics();
 app.stage.addChild(graphics);
 
-app.ticker.add(() => {
-  updatePlayer();
+app.ticker.add((ticker) => {
+  updatePlayer(ticker.deltaMS);
   renderScene(graphics);
 });
