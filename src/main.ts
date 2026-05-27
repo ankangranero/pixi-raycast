@@ -1,7 +1,7 @@
-import * as PIXI from 'pixi.js';
-import { renderScene } from './renderer';
-import { updatePlayer } from './movement';
-import './input';
+import * as PIXI from "pixi.js";
+import { initRenderer, renderScene } from "./renderer";
+import { updatePlayer } from "./movement";
+import "./input";
 
 const app = new PIXI.Application();
 
@@ -13,10 +13,9 @@ await app.init({
 
 document.body.appendChild(app.canvas);
 
-const graphics = new PIXI.Graphics();
-app.stage.addChild(graphics);
+await initRenderer(app.stage);
 
 app.ticker.add((ticker) => {
   updatePlayer(ticker.deltaMS);
-  renderScene(graphics);
+  renderScene();
 });

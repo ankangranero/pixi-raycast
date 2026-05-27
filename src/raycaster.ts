@@ -3,6 +3,7 @@ import { MAP } from "./map";
 export interface RayHit {
   distance: number;
   side: 0 | 1; // 0 = hit a vertical wall (X-side), 1 = hit a horizontal wall (Y-side)
+  wallX: number; // where on the wall the hit happens 0.0-1.0
 }
 
 export function castRay(
@@ -66,6 +67,7 @@ export function castRay(
 
   // Perpendicular distance to avoid fisheye effect
   const distance = side === 0 ? sideDistX - deltaDistX : sideDistY - deltaDistY;
-
-  return { distance, side };
+  const wallX =
+    side === 0 ? playerY + distance * rayDirY : playerX + distance * rayDirX;
+  return { distance, side, wallX: wallX - Math.floor(wallX) };
 }
