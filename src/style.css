@@ -17,6 +17,10 @@ body {
   box-sizing: border-box;
   pointer-events: none;
 }
+canvas {
+  max-width: 100%;
+  height: auto;
+}
 
 #dpad {
   display: grid;
