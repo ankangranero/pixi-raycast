@@ -11,26 +11,36 @@ let wallSprites: PIXI.Sprite[] = [];
 let bgGraphics: PIXI.Graphics;
 
 let wallFrames: PIXI.Texture[][] = []; // [frame][texSlice]
-const FRAME_CELLS = [4, 6, 8, 10, 12,14, 12, 10, 8, 6]; // ping-pong
+const FRAME_CELLS = [5, 7, 9, 11, 13,15, 13, 11, 9, 7]; // ping-pong
 
-function generateGridTexture(gridSize: number): PIXI.Texture {
+function generateGridTexture(cells: number): PIXI.Texture {
   const canvas = document.createElement("canvas");
-  canvas.width = 64;
-  canvas.height = 64;
+  canvas.width = TEX_SIZE;
+  canvas.height = TEX_SIZE;
   const ctx = canvas.getContext("2d")!;
 
-  ctx.fillStyle = "#888";
-  ctx.fillRect(0, 0, 64, 64);
+  const cellSize = TEX_SIZE / cells;
+  const center = Math.floor(cells / 2);
 
-  ctx.strokeStyle = "#000";
-  ctx.lineWidth = 1;
-  for (let i = 0; i < 64; i += gridSize) {
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i, 64);
-    ctx.stroke();
-    ctx.moveTo(0, i);
-    ctx.lineTo(64, i);
-    ctx.stroke();
+  ctx.fillStyle = "#888";
+  ctx.fillRect(0, 0, TEX_SIZE, TEX_SIZE);
+
+  // Rita diamantmönstret
+  for (let cy = 0; cy < cells; cy++) {
+    for (let cx = 0; cx < cells; cx++) {
+      if (Math.abs(cx - center) + Math.abs(cy - center) === center) {
+        ctx.fillStyle = "#000";
+        ctx.fillRect(cx * cellSize, cy * cellSize, cellSize, cellSize);
+      }
+    }
+  }
+
+  // Gridlinjer
+  ctx.strokeStyle = "#555";
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= TEX_SIZE; i += cellSize) {
+    ctx.moveTo(i, 0); ctx.lineTo(i, TEX_SIZE); ctx.stroke();
+    ctx.moveTo(0, i); ctx.lineTo(TEX_SIZE, i); ctx.stroke();
   }
 
   return PIXI.Texture.from(canvas);
@@ -38,8 +48,7 @@ function generateGridTexture(gridSize: number): PIXI.Texture {
 
 export async function initRenderer(stage: PIXI.Container): Promise<void> {
   for (const cells of FRAME_CELLS) {
-    const gridSize = TEX_SIZE / cells;
-    const tex = generateGridTexture(gridSize);
+    const tex = generateGridTexture(cells);
     const slices: PIXI.Texture[] = [];
     for (let x = 0; x < TEX_SIZE; x++) {
       slices.push(
