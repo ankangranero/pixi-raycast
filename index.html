@@ -7,6 +7,18 @@
     <title>shoot-em-up-pixi</title>
   </head>
   <body>
-<script type="module" src="/src/main.ts"></script>
+    <div id="canvas"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <div id="gamepad">
+      <div id="dpad">
+        <button data-key="ArrowUp">▲</button>
+        <button data-key="ArrowLeft">◄</button>
+        <button data-key="ArrowRight">►</button>
+        <button data-key="ArrowDown">▼</button>
+      </div>
+      <div id="action-buttons">
+        <button data-key=" ">A</button>
+      </div>
+    </div>
   </body>
 </html>

@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { initRenderer, renderScene } from "./renderer";
 import { updatePlayer } from "./movement";
 import "./input";
+import "./style.css";
 
 const app = new PIXI.Application();
 
@@ -11,7 +12,7 @@ await app.init({
   backgroundColor: 0x1a1a1a,
 });
 
-document.body.appendChild(app.canvas);
+document.getElementById("canvas")!.appendChild(app.canvas);
 
 await initRenderer(app.stage);
 

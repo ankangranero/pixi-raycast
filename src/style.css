@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+
+#gamepad {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 32px;
+  width: 100%;
+  max-width: 800px; /* matchar canvas-bredden */
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+#dpad {
+  display: grid;
+  grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
+  grid-template-columns: repeat(3, 58px);
+  grid-template-rows: repeat(3, 58px);
+  gap: 4px;
+}
+
+#dpad button[data-key="ArrowUp"] {
+  grid-area: up;
+}
+#dpad button[data-key="ArrowLeft"] {
+  grid-area: left;
+}
+#dpad button[data-key="ArrowRight"] {
+  grid-area: right;
+}
+#dpad button[data-key="ArrowDown"] {
+  grid-area: down;
+}
+
+#dpad button,
+#action-buttons button {
+  pointer-events: all;
+  background: #3a3a4a;
+  border: none;
+  border-bottom: 4px solid #1a1a2a;
+  color: #aaa;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  width: 100%;
+  height: 100%;
+}
+
+#dpad button:active {
+  background: #555568;
+  border-bottom-width: 1px;
+  transform: translateY(3px);
+}
+
+#action-buttons {
+  pointer-events: none;
+}
+
+#action-buttons button {
+  pointer-events: all;
+  width: 83px;
+  height: 83px;
+  border-radius: 50%;
+  background: #7c3aed;
+  border-bottom: 4px solid #4c1d95;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#action-buttons button:active {
+  background: #8b5cf6;
+  border-bottom-width: 1px;
+  transform: translateY(3px);
+}
