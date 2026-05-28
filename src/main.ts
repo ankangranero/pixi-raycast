@@ -15,8 +15,9 @@ await app.init({
 document.getElementById("canvas")!.appendChild(app.canvas);
 
 await initRenderer(app.stage);
-
+let gt = 0;
 app.ticker.add((ticker) => {
+  gt += ticker.deltaMS;
   updatePlayer(ticker.deltaMS);
-  renderScene();
+  renderScene(gt);
 });
