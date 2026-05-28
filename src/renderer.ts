@@ -12,7 +12,7 @@ let texSlices: PIXI.Texture[] = [];
 let bgGraphics: PIXI.Graphics;
 
 export async function initRenderer(stage: PIXI.Container): Promise<void> {
-  const wallTexture = await PIXI.Assets.load("/wall_brick.png");
+const wallTexture = await PIXI.Assets.load(`${import.meta.env.BASE_URL}wall_brick.png`);
 
   for (let x = 0; x < TEX_SIZE; x++) {
     const slice = new PIXI.Texture({
